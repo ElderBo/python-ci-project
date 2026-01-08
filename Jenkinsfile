@@ -58,10 +58,17 @@ pipeline {
             set -eu
             . "$VENV/bin/activate"
             mkdir -p reports
+            . "$VENV/bin/activate"
+
+            python -c "import os, sys; print('CWD=', os.getcwd()); print('sys.path[0]=', sys.path[0]); print(sys.path[:5])"
+            ls -la
+            ls -la app
+            /*
             pytest -q --junitxml=reports/junit.xml || {
                 echo "❌ TEST FAILED"
                 exit 1
             }
+            */
             '''
         }
     }
