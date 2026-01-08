@@ -44,7 +44,10 @@ pipeline {
         sh '''
           set -eux
           . "$VENV/bin/activate"
-          flake8 app tests
+            flake8 app tests || {
+                echo "❌ LINT FAILED"
+                exit 1
+            }
         '''
       }
     }
@@ -55,7 +58,10 @@ pipeline {
             set -eux
             . "$VENV/bin/activate"
             mkdir -p reports
-            pytest -q --junitxml=reports/junit.xml
+            pytest -q --junitxml=reports/junit.xml || {
+                echo "❌ TEST FAILED"
+                exit 1
+            }
             '''
         }
     }
