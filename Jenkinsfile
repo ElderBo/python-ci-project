@@ -65,11 +65,11 @@ pipeline {
     stage('Package (source artifact)') {
         steps {
             sh '''
-            set -eux
-            mkdir -p dist
-            # Create a build artifact from the exact source Jenkins tested
-            tar -czf "dist/source-${BUILD_NUMBER}.tar.gz" .
-            ls -lah dist
+                set -eux
+                mkdir -p dist
+                tar -czf "dist/source-${BUILD_NUMBER}.tar.gz" \
+                app requirements.txt
+                ls -lah dist
             '''
         }
     }
