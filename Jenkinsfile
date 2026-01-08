@@ -42,7 +42,7 @@ pipeline {
     stage('Lint (flake8)') {
       steps {
         sh '''
-          set -eux
+          set -eu
           . "$VENV/bin/activate"
             flake8 app tests || {
                 echo "❌ LINT FAILED"
@@ -55,7 +55,7 @@ pipeline {
     stage('Test (pytest)') {
         steps {
             sh '''
-            set -eux
+            set -eu
             . "$VENV/bin/activate"
             mkdir -p reports
             pytest -q --junitxml=reports/junit.xml || {
